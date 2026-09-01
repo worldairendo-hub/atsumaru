@@ -29,6 +29,13 @@
           "'": "&#39;",
         })[c],
     );
+  const areas = {
+    kisarazu: { label: "木更津", station: "KZ", source: "木更津" },
+    kanaya: { label: "金谷", station: "TT", source: "館山" },
+    sagami: { label: "相模湾", station: "Z1", source: "油壺" },
+  };
+  const selectedArea = () =>
+    document.querySelector(".area-btn.active")?.dataset.area || "kisarazu";
   const style = `<style>.ats-tide-live h2{margin:0 0 8px;font-size:28px}.ats-tide-sub{color:var(--muted);line-height:1.6;margin:0 0 12px}.ats-tide-chart{background:linear-gradient(180deg,#0b2130 0%,#071722 100%);border:1px solid #1f4a61;border-radius:18px;padding:8px 6px 4px;margin:12px 0 14px;overflow:hidden}.ats-tide-chart svg{width:100%;height:auto;display:block}.ats-tide-grid{stroke:#23485d;stroke-width:1}.ats-tide-vgrid{stroke:#17384a;stroke-width:1}.ats-tide-line{fill:none;stroke:#58c7ff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}.ats-tide-area{fill:url(#atsTideFill)}.ats-tide-label{fill:#d4e1e8;font-size:15px;font-weight:700}.ats-tide-small{fill:#9fb5c2;font-size:13px}.ats-tide-now{stroke:#ffd166;stroke-width:3;stroke-dasharray:6 5}.ats-tide-nowdot{fill:#ffd166;stroke:#071722;stroke-width:3}.ats-tide-event-dot{fill:#fff;stroke:#58c7ff;stroke-width:3}.ats-tide-event-text{fill:#fff;font-size:14px;font-weight:800}.ats-tide-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ats-tide-box{border:1px solid var(--line);border-radius:14px;padding:14px;background:#071722}.ats-tide-box b{display:block;color:#47bdf5;font-size:13px;margin-bottom:4px}.ats-tide-box strong{font-size:22px}.ats-tide-source{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.6}.ats-tide-error{padding:18px;border:1px solid var(--line);border-radius:14px;color:#ffb4b4}@media(max-width:520px){.ats-tide-live h2{font-size:24px}.ats-tide-box strong{font-size:19px}.ats-tide-label{font-size:14px}.ats-tide-event-text{font-size:13px}.ats-tide-chart{margin-left:-4px;margin-right:-4px}}</style>`;
   document.head.insertAdjacentHTML("beforeend", style);
   const findCard = () => {
@@ -142,7 +149,7 @@
       events: events.sort((a, b) => a.time.localeCompare(b.time)),
     };
   };
-  const renderFallback = (card, now) => {
+  const renderFallback = (card, now, area) => {
     const d = fallbackData(now);
     const nowMs = Date.now();
     const high = d.events.find(
@@ -155,18 +162,19 @@
     const next = d.hourly[Math.min(23, now.hour + 1)];
     const trend = next > current + 1 ? "上げ" : next < current - 1 ? "下げ" : "ほぼ停滞";
 
-    card.innerHTML = `<h2>木更津のタイドグラフ</h2><p class="ats-tide-sub">${esc(d.date)}　簡易潮汐（通信障害時の参考表示）</p><div class="ats-tide-chart">${makeChart(d.hourly, d.events, now)}</div><div class="ats-tide-meta"><div class="ats-tide-box"><b>次の満潮</b><strong>${fmtEvent(high)}</strong></div><div class="ats-tide-box"><b>次の干潮</b><strong>${fmtEvent(low)}</strong></div><div class="ats-tide-box"><b>現在の傾向</b><strong>${trend}</strong></div><div class="ats-tide-box"><b>基準地点</b><strong>木更津</strong></div></div><div class="ats-tide-source">気象庁データへ接続できないため簡易計算で表示中です。<br>※航海判断には気象庁などの公式情報を確認してください。</div>`;
+    card.innerHTML = `<h2>${area.label}のタイドグラフ</h2><p class="ats-tide-sub">${esc(d.date)}　簡易潮汐（通信障害時の参考表示）</p><div class="ats-tide-chart">${makeChart(d.hourly, d.events, now)}</div><div class="ats-tide-meta"><div class="ats-tide-box"><b>次の満潮</b><strong>${fmtEvent(high)}</strong></div><div class="ats-tide-box"><b>次の干潮</b><strong>${fmtEvent(low)}</strong></div><div class="ats-tide-box"><b>現在の傾向</b><strong>${trend}</strong></div><div class="ats-tide-box"><b>基準地点</b><strong>${area.source}</strong></div></div><div class="ats-tide-source">気象庁データへ接続できないため簡易計算で表示中です。<br>※航海判断には気象庁などの公式情報を確認してください。</div>`;
   };
-  const run = async () => {
+  const run = async (areaKey = selectedArea()) => {
+    const area = areas[areaKey] || areas.kisarazu;
     const card = findCard();
     if (!card) return;
     card.classList.add("ats-tide-live");
     card.innerHTML =
-      '<h2>木更津のタイドグラフ</h2><p class="ats-tide-sub">気象庁の潮位予測データを読み込み中…</p>';
+      `<h2>${area.label}のタイドグラフ</h2><p class="ats-tide-sub">気象庁の潮位予測データを読み込み中…</p>`;
     try {
       const now = jstParts();
       const r = await fetch(
-        `/api/tide?date=${encodeURIComponent(now.date)}&v=3`,
+        `/api/tide?date=${encodeURIComponent(now.date)}&station=${area.station}&v=4`,
         { cache: "no-store" },
       );
       if (!r.ok) throw new Error("HTTP " + r.status);
@@ -191,10 +199,13 @@
             : nextVal < cur - 1
               ? "下げ"
               : "ほぼ停滞";
-      card.innerHTML = `<h2>木更津のタイドグラフ</h2><p class="ats-tide-sub">${esc(d.date)}　気象庁の潮位予測</p><div class="ats-tide-chart">${makeChart(d.hourly, d.events, now)}</div><div class="ats-tide-meta"><div class="ats-tide-box"><b>次の満潮</b><strong>${fmtEvent(high)}</strong></div><div class="ats-tide-box"><b>次の干潮</b><strong>${fmtEvent(low)}</strong></div><div class="ats-tide-box"><b>現在の傾向</b><strong>${trend}</strong></div><div class="ats-tide-box"><b>基準地点</b><strong>木更津</strong></div></div><div class="ats-tide-source">出典：気象庁 潮位表（木更津）／単位：cm<br>黄色＝現在、白い点＝満潮・干潮<br>※航海判断には気象庁などの公式情報も確認してください。</div>`;
+      card.innerHTML = `<h2>${area.label}のタイドグラフ</h2><p class="ats-tide-sub">${esc(d.date)}　気象庁の潮位予測</p><div class="ats-tide-chart">${makeChart(d.hourly, d.events, now)}</div><div class="ats-tide-meta"><div class="ats-tide-box"><b>次の満潮</b><strong>${fmtEvent(high)}</strong></div><div class="ats-tide-box"><b>次の干潮</b><strong>${fmtEvent(low)}</strong></div><div class="ats-tide-box"><b>現在の傾向</b><strong>${trend}</strong></div><div class="ats-tide-box"><b>基準地点</b><strong>${area.source}</strong></div></div><div class="ats-tide-source">出典：気象庁 潮位表（${area.source}）／単位：cm<br>黄色＝現在、白い点＝満潮・干潮<br>※航海判断には気象庁などの公式情報も確認してください。</div>`;
     } catch (e) {
-      renderFallback(card, jstParts());
+      renderFallback(card, jstParts(), area);
     }
   };
+  document.querySelectorAll(".area-btn").forEach((button) => {
+    button.addEventListener("click", () => run(button.dataset.area));
+  });
   run();
 })();
