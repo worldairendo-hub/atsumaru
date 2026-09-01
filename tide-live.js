@@ -32,7 +32,7 @@
   const areas = {
     kisarazu: { label: "木更津", station: "KZ", source: "木更津" },
     kanaya: { label: "金谷", station: "TT", source: "館山" },
-    sagami: { label: "相模湾", station: "Z1", source: "油壺" },
+    sagami: { label: "岡田", station: "OK", source: "岡田" },
   };
   const selectedArea = () =>
     document.querySelector(".area-btn.active")?.dataset.area || "kisarazu";
