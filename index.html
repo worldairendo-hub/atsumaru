@@ -90,9 +90,12 @@
           const tl = await fetch("./tide-live.js?v=20260902-5", {
             cache: "no-store",
           }).then((x) => x.text());
+          const mm = await fetch("./mobile-menu.js?v=20260902-1", {
+            cache: "no-store",
+          }).then((x) => x.text());
           h = h.replace(
             "</body>",
-            `<script>${p}<\/script><script>${c}<\/script><script>${i}<\/script><script>${o}<\/script><script>${cc}<\/script><script>${cp}<\/script><script>${bp}<\/script><script>${bk}<\/script><script>${hc}<\/script><script>${mg}<\/script><script>${lb}<\/script><script>${tl}<\/script></body>`,
+            `<script>${p}<\/script><script>${c}<\/script><script>${i}<\/script><script>${o}<\/script><script>${cc}<\/script><script>${cp}<\/script><script>${bp}<\/script><script>${bk}<\/script><script>${hc}<\/script><script>${mg}<\/script><script>${lb}<\/script><script>${tl}<\/script><script>${mm}<\/script></body>`,
           );
           document.open();
           document.write(h);
