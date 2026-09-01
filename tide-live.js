@@ -36,6 +36,8 @@
   };
   const selectedArea = () =>
     document.querySelector(".area-btn.active")?.dataset.area || "kisarazu";
+  const okadaButton = document.querySelector('.area-btn[data-area="sagami"]');
+  if (okadaButton) okadaButton.textContent = "📍 岡田";
   const style = `<style>.ats-tide-live h2{margin:0 0 8px;font-size:28px}.ats-tide-sub{color:var(--muted);line-height:1.6;margin:0 0 12px}.ats-tide-chart{background:linear-gradient(180deg,#0b2130 0%,#071722 100%);border:1px solid #1f4a61;border-radius:18px;padding:8px 6px 4px;margin:12px 0 14px;overflow:hidden}.ats-tide-chart svg{width:100%;height:auto;display:block}.ats-tide-grid{stroke:#23485d;stroke-width:1}.ats-tide-vgrid{stroke:#17384a;stroke-width:1}.ats-tide-line{fill:none;stroke:#58c7ff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}.ats-tide-area{fill:url(#atsTideFill)}.ats-tide-label{fill:#d4e1e8;font-size:15px;font-weight:700}.ats-tide-small{fill:#9fb5c2;font-size:13px}.ats-tide-now{stroke:#ffd166;stroke-width:3;stroke-dasharray:6 5}.ats-tide-nowdot{fill:#ffd166;stroke:#071722;stroke-width:3}.ats-tide-event-dot{fill:#fff;stroke:#58c7ff;stroke-width:3}.ats-tide-event-text{fill:#fff;font-size:14px;font-weight:800}.ats-tide-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ats-tide-box{border:1px solid var(--line);border-radius:14px;padding:14px;background:#071722}.ats-tide-box b{display:block;color:#47bdf5;font-size:13px;margin-bottom:4px}.ats-tide-box strong{font-size:22px}.ats-tide-source{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.6}.ats-tide-error{padding:18px;border:1px solid var(--line);border-radius:14px;color:#ffb4b4}@media(max-width:520px){.ats-tide-live h2{font-size:24px}.ats-tide-box strong{font-size:19px}.ats-tide-label{font-size:14px}.ats-tide-event-text{font-size:13px}.ats-tide-chart{margin-left:-4px;margin-right:-4px}}</style>`;
   document.head.insertAdjacentHTML("beforeend", style);
   const findCard = () => {
@@ -205,7 +207,15 @@
     }
   };
   document.querySelectorAll(".area-btn").forEach((button) => {
-    button.addEventListener("click", () => run(button.dataset.area));
+    button.addEventListener("click", () => {
+      run(button.dataset.area);
+      if (button.dataset.area === "sagami") {
+        setTimeout(() => {
+          const areaName = document.getElementById("areaName");
+          if (areaName) areaName.textContent = "岡田";
+        }, 0);
+      }
+    });
   });
   run();
 })();
