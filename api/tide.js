@@ -1,5 +1,5 @@
 module.exports = async (req, res) => {
-  const stations = { KZ: "木更津", TT: "館山", Z1: "油壺" };
+  const stations = { KZ: "木更津", TT: "館山", Z1: "油壺", OK: "岡田" };
   const requestedStation = String(req.query.station || "KZ").toUpperCase();
   const station = stations[requestedStation] ? requestedStation : "KZ";
   const pad = (n) => String(n).padStart(2, "0");
