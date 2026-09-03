@@ -63,7 +63,10 @@
           const c419 = await fetch("./catch-20260419-patch.js?v=20260903-1", {
             cache: "no-store",
           }).then((x) => x.text());
-          const c412 = await fetch("./catch-20260412-patch.js?v=20260903-2", {
+          const c412 = await fetch("./catch-20260412-patch.js?v=20260903-4", {
+            cache: "no-store",
+          }).then((x) => x.text());
+          const c412r = await fetch("./catch-20260412-retry.js?v=20260903-1", {
             cache: "no-store",
           }).then((x) => x.text());
           const i = await fetch("./atsumaru-icon-fix.js?v=20260831-7", {
@@ -104,7 +107,7 @@
           }).then((x) => x.text());
           h = h.replace(
             "</body>",
-            `<script>${p}<\/script><script>${c}<\/script><script>${c419}<\/script><script>${c412}<\/script><script>${i}<\/script><script>${o}<\/script><script>${cc}<\/script><script>${cp}<\/script><script>${cn}<\/script><script>${bp}<\/script><script>${bk}<\/script><script>${hc}<\/script><script>${mg}<\/script><script>${lb}<\/script><script>${tl}<\/script><script>${mm}<\/script></body>`,
+            `<script>${p}<\/script><script>${c}<\/script><script>${c419}<\/script><script>${c412}<\/script><script>${i}<\/script><script>${o}<\/script><script>${cc}<\/script><script>${cp}<\/script><script>${cn}<\/script><script>${bp}<\/script><script>${bk}<\/script><script>${hc}<\/script><script>${mg}<\/script><script>${lb}<\/script><script>${tl}<\/script><script>${mm}<\/script><script>${c412r}<\/script></body>`,
           );
           document.open();
           document.write(h);
