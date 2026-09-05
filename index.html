@@ -53,7 +53,8 @@
           });
           if (!r.ok) throw Error();
           let h = await r.text();
-          h = h.split("タチウオ F4（指4本）").join("タチウオ F4");
+          h = h.split("タチウオ F4（指4本）").join("");
+          h = h.split("タチウオ F4").join("");
           const p = await fetch("./site-patch.js?v=20260901-7", {
             cache: "no-store",
           }).then((x) => x.text());
