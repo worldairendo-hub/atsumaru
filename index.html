@@ -20,12 +20,12 @@
     <script>
       (async () => {
         try {
-          const r = await fetch("./index.html.html?v=20260902-1", { cache: "no-store" });
+          const r = await fetch("./index.html.html?v=20260910-2", { cache: "no-store" });
           if (!r.ok) throw Error();
           let h = await r.text();
           h = h.split("タチウオ F4（指4本）").join("");
           h = h.split("タチウオ F4").join("");
-          const p = await fetch("./site-patch.js?v=20260901-7", { cache: "no-store" }).then((x) => x.text());
+          const p = await fetch("./site-patch.js?v=20260910-2", { cache: "no-store" }).then((x) => x.text());
           const c = await fetch("./catch-patch.js?v=20260901-2", { cache: "no-store" }).then((x) => x.text());
           const c905 = await fetch("./catch-20260905-patch.js?v=20260905-1", { cache: "no-store" }).then((x) => x.text());
           const c419 = await fetch("./catch-20260419-patch.js?v=20260903-1", { cache: "no-store" }).then((x) => x.text());
@@ -43,8 +43,7 @@
           const lb = await fetch("./photo-lightbox.js?v=20260901-1", { cache: "no-store" }).then((x) => x.text());
           const tl = await fetch("./tide-live.js?v=20260902-5", { cache: "no-store" }).then((x) => x.text());
           const mm = await fetch("./mobile-menu.js?v=20260902-1", { cache: "no-store" }).then((x) => x.text());
-          const s1024 = await fetch("./schedule-20261024-patch.js?v=20260910-1", { cache: "no-store" }).then((x) => x.text());
-          h = h.replace("</body>", `<script>${p}<\/script><script>${c}<\/script><script>${c905}<\/script><script>${c419}<\/script><script>${c412}<\/script><script>${i}<\/script><script>${o}<\/script><script>${cc}<\/script><script>${cp}<\/script><script>${cn}<\/script><script>${bp}<\/script><script>${bk}<\/script><script>${hc}<\/script><script>${mg}<\/script><script>${lb}<\/script><script>${tl}<\/script><script>${mm}<\/script><script>${c412r}<\/script><script>${s1024}<\/script></body>`);
+          h = h.replace("</body>", `<script>${p}<\/script><script>${c}<\/script><script>${c905}<\/script><script>${c419}<\/script><script>${c412}<\/script><script>${i}<\/script><script>${o}<\/script><script>${cc}<\/script><script>${cp}<\/script><script>${cn}<\/script><script>${bp}<\/script><script>${bk}<\/script><script>${hc}<\/script><script>${mg}<\/script><script>${lb}<\/script><script>${tl}<\/script><script>${mm}<\/script><script>${c412r}<\/script></body>`);
           document.open();
           document.write(h);
           document.close();
