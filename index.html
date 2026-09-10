@@ -2,45 +2,17 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,viewport-fit=cover"
-    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <title>敦丸 | SEA & FISHING LOG</title>
-    <link
-      rel="icon"
-      type="image/png"
-      href="./apple-touch-icon.png?v=20260831-7"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="./apple-touch-icon-180.png?v=20260831-7"
-    />
-    <link
-      rel="apple-touch-icon-precomposed"
-      href="./apple-touch-icon-precomposed.png?v=20260831-7"
-    />
+    <link rel="icon" type="image/png" href="./apple-touch-icon.png?v=20260831-7" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon-180.png?v=20260831-7" />
+    <link rel="apple-touch-icon-precomposed" href="./apple-touch-icon-precomposed.png?v=20260831-7" />
     <link rel="manifest" href="./manifest.webmanifest?v=20260831-7" />
     <meta name="apple-mobile-web-app-title" content="敦丸" />
     <meta name="theme-color" content="#06111a" />
     <style>
-      html,
-      body {
-        margin: 0;
-        background: #06111a;
-        color: #f4f8fb;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", "Yu Gothic",
-          "Hiragino Kaku Gothic ProN", sans-serif;
-      }
-      #loading {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        font-size: 15px;
-        opacity: 0.8;
-      }
+      html, body { margin: 0; background: #06111a; color: #f4f8fb; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif; }
+      #loading { min-height: 100vh; display: grid; place-items: center; font-size: 15px; opacity: 0.8; }
     </style>
   </head>
   <body>
@@ -48,77 +20,36 @@
     <script>
       (async () => {
         try {
-          const r = await fetch("./index.html.html?v=20260902-1", {
-            cache: "no-store",
-          });
+          const r = await fetch("./index.html.html?v=20260902-1", { cache: "no-store" });
           if (!r.ok) throw Error();
           let h = await r.text();
           h = h.split("タチウオ F4（指4本）").join("");
           h = h.split("タチウオ F4").join("");
-          const p = await fetch("./site-patch.js?v=20260901-7", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const c = await fetch("./catch-patch.js?v=20260901-2", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const c905 = await fetch("./catch-20260905-patch.js?v=20260905-1", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const c419 = await fetch("./catch-20260419-patch.js?v=20260903-1", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const c412 = await fetch("./catch-20260412-patch.js?v=20260903-5", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const c412r = await fetch("./catch-20260412-retry.js?v=20260903-2", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const i = await fetch("./atsumaru-icon-fix.js?v=20260831-7", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const o = await fetch("./layout-order.js?v=20260901-1", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const cc = await fetch("./catch-collapse.js?v=20260901-3", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const cp = await fetch("./captain-photo.js?v=20260831-1", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const cn = await fetch("./captain-name-patch.js?v=20260902-1", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const bp = await fetch("./boat-photo-patch.js?v=20260901-3", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const bk = await fetch("./booking-form.js?v=20260901-4", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const hc = await fetch("./hero-copy-patch.js?v=20260901-1", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const mg = await fetch("./memory-gallery-patch.js?v=20260901-1", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const lb = await fetch("./photo-lightbox.js?v=20260901-1", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const tl = await fetch("./tide-live.js?v=20260902-5", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          const mm = await fetch("./mobile-menu.js?v=20260902-1", {
-            cache: "no-store",
-          }).then((x) => x.text());
-          h = h.replace(
-            "</body>",
-            `<script>${p}<\/script><script>${c}<\/script><script>${c905}<\/script><script>${c419}<\/script><script>${c412}<\/script><script>${i}<\/script><script>${o}<\/script><script>${cc}<\/script><script>${cp}<\/script><script>${cn}<\/script><script>${bp}<\/script><script>${bk}<\/script><script>${hc}<\/script><script>${mg}<\/script><script>${lb}<\/script><script>${tl}<\/script><script>${mm}<\/script><script>${c412r}<\/script></body>`,
-          );
+          const p = await fetch("./site-patch.js?v=20260901-7", { cache: "no-store" }).then((x) => x.text());
+          const c = await fetch("./catch-patch.js?v=20260901-2", { cache: "no-store" }).then((x) => x.text());
+          const c905 = await fetch("./catch-20260905-patch.js?v=20260905-1", { cache: "no-store" }).then((x) => x.text());
+          const c419 = await fetch("./catch-20260419-patch.js?v=20260903-1", { cache: "no-store" }).then((x) => x.text());
+          const c412 = await fetch("./catch-20260412-patch.js?v=20260903-5", { cache: "no-store" }).then((x) => x.text());
+          const c412r = await fetch("./catch-20260412-retry.js?v=20260903-2", { cache: "no-store" }).then((x) => x.text());
+          const i = await fetch("./atsumaru-icon-fix.js?v=20260831-7", { cache: "no-store" }).then((x) => x.text());
+          const o = await fetch("./layout-order.js?v=20260901-1", { cache: "no-store" }).then((x) => x.text());
+          const cc = await fetch("./catch-collapse.js?v=20260901-3", { cache: "no-store" }).then((x) => x.text());
+          const cp = await fetch("./captain-photo.js?v=20260831-1", { cache: "no-store" }).then((x) => x.text());
+          const cn = await fetch("./captain-name-patch.js?v=20260902-1", { cache: "no-store" }).then((x) => x.text());
+          const bp = await fetch("./boat-photo-patch.js?v=20260901-3", { cache: "no-store" }).then((x) => x.text());
+          const bk = await fetch("./booking-form.js?v=20260901-4", { cache: "no-store" }).then((x) => x.text());
+          const hc = await fetch("./hero-copy-patch.js?v=20260901-1", { cache: "no-store" }).then((x) => x.text());
+          const mg = await fetch("./memory-gallery-patch.js?v=20260901-1", { cache: "no-store" }).then((x) => x.text());
+          const lb = await fetch("./photo-lightbox.js?v=20260901-1", { cache: "no-store" }).then((x) => x.text());
+          const tl = await fetch("./tide-live.js?v=20260902-5", { cache: "no-store" }).then((x) => x.text());
+          const mm = await fetch("./mobile-menu.js?v=20260902-1", { cache: "no-store" }).then((x) => x.text());
+          const s1024 = await fetch("./schedule-20261024-patch.js?v=20260910-1", { cache: "no-store" }).then((x) => x.text());
+          h = h.replace("</body>", `<script>${p}<\/script><script>${c}<\/script><script>${c905}<\/script><script>${c419}<\/script><script>${c412}<\/script><script>${i}<\/script><script>${o}<\/script><script>${cc}<\/script><script>${cp}<\/script><script>${cn}<\/script><script>${bp}<\/script><script>${bk}<\/script><script>${hc}<\/script><script>${mg}<\/script><script>${lb}<\/script><script>${tl}<\/script><script>${mm}<\/script><script>${c412r}<\/script><script>${s1024}<\/script></body>`);
           document.open();
           document.write(h);
           document.close();
         } catch (e) {
-          document.getElementById("loading").textContent =
-            "読み込みに失敗しました。再読み込みしてください。";
+          document.getElementById("loading").textContent = "読み込みに失敗しました。再読み込みしてください。";
         }
       })();
     </script>
