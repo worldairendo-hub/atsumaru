@@ -25,7 +25,7 @@
           let h = await r.text();
           h = h.split("タチウオ F4（指4本）").join("");
           h = h.split("タチウオ F4").join("");
-          const p = await fetch("./site-patch.js?v=20260920-4", { cache: "no-store" }).then((x) => x.text());
+          const p = await fetch("./site-patch.js?v=20260920-5", { cache: "no-store" }).then((x) => x.text());
           const c = await fetch("./catch-patch.js?v=20260901-2", { cache: "no-store" }).then((x) => x.text());
           const c913 = await fetch("./catch-20260913-patch.js?v=20260920-3", { cache: "no-store" }).then((x) => x.text());
           const c905 = await fetch("./catch-20260905-patch.js?v=20260905-1", { cache: "no-store" }).then((x) => x.text());
